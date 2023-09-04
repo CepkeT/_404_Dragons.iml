@@ -19,7 +19,7 @@ function Hero() {
 
     setTimeout(() => {
        let animationIndex = currentSourseImage + 1;
-        if(animationIndex == animation.length){
+        if(animationIndex === animation.length){
             animationIndex = 0;
         }
         setCurrentSourseImage(animationIndex)
