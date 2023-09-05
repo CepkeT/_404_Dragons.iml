@@ -105,7 +105,7 @@ function AllRoad({ Road }) {
   }, [previousTime, animateRoad]);
 
   const windowWidth = window.innerWidth;
-  const objectCount = Math.floor(windowWidth / 35);
+  const objectCount = Math.floor(windowWidth / 40);
   /* Вычисление количества элементов в строке
   windowWidth и objectCount вычисляются для определения
   количества элементов в строке на основе ширины окна*/
