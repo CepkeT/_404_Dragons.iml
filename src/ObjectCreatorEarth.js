@@ -1,11 +1,11 @@
 import Earth from "./Earth";
-import {useState} from "react";
 
-function ObjectCreatorEarth({objectIndex}) {
-    if (objectIndex === 1) {
-        return <Earth/>
-    }
-    return <Earth/>
+function ObjectCreatorEarth({ objectIndex }) {
+        if (objectIndex >= 0 && objectIndex <= 99) {
+                return <Earth />;
+        } else {
+                return null;
+        }
 }
 
 export default ObjectCreatorEarth;

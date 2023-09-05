@@ -1,6 +1,6 @@
 function Empty(){
     return (
-        <td> </td>
+        <div> </div>
     )
 }
 

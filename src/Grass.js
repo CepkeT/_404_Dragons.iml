@@ -1,8 +1,8 @@
 function Grass() {
     return (
-        <td>
-            <img src="/Icons/Landscape/grass.png"/>
-        </td>
+        <div>
+            <img src="/Icons/Landscape/grass.png" style={{ width: "100%", height: "100%" }}/>
+        </div>
     )
 
 }

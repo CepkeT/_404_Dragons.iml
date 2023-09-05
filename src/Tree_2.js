@@ -1,8 +1,8 @@
 function Tree_2() {
     return (
-        <td>
-            <img src="/Icons/Landscape/tree_2.png"/>
-        </td>
+        <div>
+            <img id={"tree_2"} src="/Icons/Landscape/tree_2.png"/>
+        </div>
     )
 
 }

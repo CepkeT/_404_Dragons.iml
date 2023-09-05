@@ -1,9 +1,9 @@
 function earth() {
     return (
-        <td>
-            <img src="/Icons/Landscape/earth.png"/>
-        </td>
+        <div>
+            <img src="/Icons/Landscape/earth.png" style={{ width: "100%", height: "100%" }}/>
+        </div>
     )
 
 }
-export default earth
+export default earth;

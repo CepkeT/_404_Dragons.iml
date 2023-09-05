@@ -1,109 +1,146 @@
-import React, { useEffect, useState } from "react";
+/*  useEffect(() => {
+      const animate = () => {
+          setRoad((prevRoad) => RoadMove(prevRoad));
+          setTimeout(animate, 300);
+      };
+
+      setTimeout(animate, 300);
+  }, []);
+  const [previousTime, setPreviousTime] = useState(0);
+
+  useEffect(() => {
+    let animationFrameId;
+
+    const animate = (time) => {
+      if (time - previousTime >= 300) {
+        setRoad((prevRoad) => RoadMove(prevRoad));
+        setPreviousTime(time);
+      }
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [previousTime]);
+  */
+/*
+useEffect(() => {
+    let timeoutId;
+
+    const animate = () => {
+      const currentTime = Date.now();
+      if (currentTime - previousTime >= 300) {
+        setRoad((prevRoad) => RoadMove(prevRoad));
+        setPreviousTime(currentTime);
+      }
+      timeoutId = setTimeout(animate, 300);
+    };
+
+    timeoutId = setTimeout(animate, 300);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [previousTime]);
+  */
+import React, { useEffect, useState, useCallback } from "react";
 import ObjectCreator from "./ObjectCreator";
 import Hero from "./Hero";
-import RoadMove from "./RoadMove";
 import ObjectCreatorEarth from "./ObjectCreatorEarth";
 import ObjectCreatorGrass from "./ObjectCreatorGrass";
 import ObjectCreatorBird from "./ObjectCreatorBird";
+import "./style/AllRoad.css";
+import RoadMove from "./RoadMove";
 
+/* Мемоизированные компоненты для оптимизации рендеринга
+созданные с помощью React.memo. Они используются для  предотвращения ненужной перерисовки этих компонентов,
+если их пропсы не изменились.*/
+const ObjectCreatorBirdMemo = React.memo(ObjectCreatorBird);
+const HeroMemo = React.memo(Hero);
+const ObjectCreatorGrassMemo = React.memo(ObjectCreatorGrass);
+const ObjectCreatorEarthMemo = React.memo(ObjectCreatorEarth);
 
+function AllRoad({ Road }) {
+  // Состояние для хранения текущего состояния дороги
+  const [road, setRoad] = useState(Road);
 
-function AllRoad({Road}) {
-    const [road, setRoad] = useState(Road);
-    const interval = setTimeout(args => {
-        setRoad(roadMove(road));
-        console.log(road);
-        }, 500);
+  /* Функция для анимации дороги созданная с помощью useCallback,
+   которая выполняет анимацию дороги путем вызова RoadMove
+   и обновления состояния road.*/
+  const animateRoad = useCallback(() => {
+    setRoad((prevRoad) => RoadMove(prevRoad));
+  }, [Road]);
 
+  // Состояние для хранения предыдущего времени
+  const [previousTime, setPreviousTime] = useState(0);
 
+  useEffect(() => {
+    let animationFrameId;
 
-    return (
-        <div id="GameField">
-            <table>
-                <tbody>
-                <tr>
-                    <ObjectCreatorBird objectIndex={road[0]}/>
-                    <ObjectCreatorBird objectIndex={road[1]}/>
-                    <ObjectCreatorBird objectIndex={road[2]}/>
-                    <ObjectCreatorBird objectIndex={road[3]}/>
-                    <ObjectCreatorBird objectIndex={road[4]}/>
-                    <ObjectCreatorBird objectIndex={road[5]}/>
-                    <ObjectCreatorBird objectIndex={road[6]}/>
-                    <ObjectCreatorBird objectIndex={road[7]}/>
-                    <ObjectCreatorBird objectIndex={road[8]}/>
-                    <ObjectCreatorBird objectIndex={road[9]}/>
-                    <ObjectCreatorBird objectIndex={road[10]}/>
-                    <ObjectCreatorBird objectIndex={road[11]}/>
-                    <ObjectCreatorBird objectIndex={road[12]}/>
-                    <ObjectCreatorBird objectIndex={road[13]}/>
-                    <ObjectCreatorBird objectIndex={road[14]}/>
-                    <ObjectCreatorBird objectIndex={road[15]}/>
-                    <ObjectCreatorBird objectIndex={road[16]}/>
-                </tr>
+    /*Функция для анимации времени
+      useEffect используется для запуска анимации и обновления состояния дороги.
+      Он вызывает функцию animateTime при каждом изменении previousTime.
+      Если прошло достаточно времени (300 миллисекунд) с момента предыдущего кадра,
+      она вызывает animateRoad для обновления состояния дороги и обновляет previousTime.
+      Затем она планирует следующий кадр анимации с помощью requestAnimationFrame.*/
+    const animateTime = (time) => {
+      if (time - previousTime >= 300) {
+        animateRoad(); // Вызов функции анимации дороги
+        setPreviousTime(time); // Обновление предыдущего времени
+      }
+      animationFrameId = requestAnimationFrame(animateTime); // Запланировать следующий кадр анимации
+    };
 
-                <tr>
-                    <ObjectCreator objectIndex={road[0]}/>
-                    <ObjectCreator objectIndex={road[1]}/>
-                    <ObjectCreator objectIndex={road[2]}/>
-                    <Hero/>
-                    <ObjectCreator objectIndex={road[3]}/>
-                    <ObjectCreator objectIndex={road[4]}/>
-                    <ObjectCreator objectIndex={road[5]}/>
-                    <ObjectCreator objectIndex={road[6]}/>
-                    <ObjectCreator objectIndex={road[7]}/>
-                    <ObjectCreator objectIndex={road[8]}/>
-                    <ObjectCreator objectIndex={road[9]}/>
-                    <ObjectCreator objectIndex={road[10]}/>
-                    <ObjectCreator objectIndex={road[11]}/>
-                    <ObjectCreator objectIndex={road[12]}/>
-                    <ObjectCreator objectIndex={road[13]}/>
-                    <ObjectCreator objectIndex={road[14]}/>
-                    <ObjectCreator objectIndex={road[15]}/>
-                </tr>
+    animationFrameId = requestAnimationFrame(animateTime); // Запуск анимации
 
-                <tr>
-                    <ObjectCreatorGrass objectIndex={road[0]}/>
-                    <ObjectCreatorGrass objectIndex={road[1]}/>
-                    <ObjectCreatorGrass objectIndex={road[2]}/>
-                    <ObjectCreatorGrass objectIndex={road[3]}/>
-                    <ObjectCreatorGrass objectIndex={road[4]}/>
-                    <ObjectCreatorGrass objectIndex={road[5]}/>
-                    <ObjectCreatorGrass objectIndex={road[6]}/>
-                    <ObjectCreatorGrass objectIndex={road[7]}/>
-                    <ObjectCreatorGrass objectIndex={road[8]}/>
-                    <ObjectCreatorGrass objectIndex={road[9]}/>
-                    <ObjectCreatorGrass objectIndex={road[10]}/>
-                    <ObjectCreatorGrass objectIndex={road[11]}/>
-                    <ObjectCreatorGrass objectIndex={road[12]}/>
-                    <ObjectCreatorGrass objectIndex={road[13]}/>
-                    <ObjectCreatorGrass objectIndex={road[14]}/>
-                    <ObjectCreatorGrass objectIndex={road[15]}/>
-                    <ObjectCreatorGrass objectIndex={road[16]}/>
-                </tr>
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      /* Очистка анимации при размонтировании компонента
+      используется возвращаемой функции useEffect для
+      очистки анимации при размонтировании компонента.*/
+    };
+  }, [previousTime, animateRoad]);
 
-                <tr>
-                    <ObjectCreatorEarth objectIndex={road[0]}/>
-                    <ObjectCreatorEarth objectIndex={road[1]}/>
-                    <ObjectCreatorEarth objectIndex={road[2]}/>
-                    <ObjectCreatorEarth objectIndex={road[3]}/>
-                    <ObjectCreatorEarth objectIndex={road[4]}/>
-                    <ObjectCreatorEarth objectIndex={road[5]}/>
-                    <ObjectCreatorEarth objectIndex={road[6]}/>
-                    <ObjectCreatorEarth objectIndex={road[7]}/>
-                    <ObjectCreatorEarth objectIndex={road[8]}/>
-                    <ObjectCreatorEarth objectIndex={road[9]}/>
-                    <ObjectCreatorEarth objectIndex={road[10]}/>
-                    <ObjectCreatorEarth objectIndex={road[11]}/>
-                    <ObjectCreatorEarth objectIndex={road[12]}/>
-                    <ObjectCreatorEarth objectIndex={road[13]}/>
-                    <ObjectCreatorEarth objectIndex={road[14]}/>
-                    <ObjectCreatorEarth objectIndex={road[15]}/>
-                    <ObjectCreatorEarth objectIndex={road[16]}/>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    );
+  const windowWidth = window.innerWidth;
+  const objectCount = Math.floor(windowWidth / 35);
+  /* Вычисление количества элементов в строке
+  windowWidth и objectCount вычисляются для определения
+  количества элементов в строке на основе ширины окна*/
+
+  return (
+      <div className="AllRoadContainer">
+        {Array.from({ length: 20 }).map((_, rowIndex) => (
+            <div key={rowIndex} className="RowContainer">
+              {Array.from({ length: objectCount }).map((_, objectIndex) => {
+                let component;
+
+                if (rowIndex === 13) {
+                  component = <ObjectCreatorBirdMemo objectIndex={road[objectIndex]} />;
+                } else if (rowIndex === 14) {
+                  if (objectIndex === 5) {
+                    component = <HeroMemo />;
+                  } else {
+                    component = <ObjectCreator objectIndex={road[objectIndex]} />;
+                  }
+                } else if (rowIndex === 15) {
+                  component = <ObjectCreatorGrassMemo objectIndex={road[objectIndex]} />;
+                } else if (rowIndex === 16) {
+                  component = <ObjectCreatorEarthMemo objectIndex={road[objectIndex]} />;
+                }
+
+                return (
+                    <div key={objectIndex} className="PixelContainer">
+                      {component}
+                    </div>
+                );
+              })}
+            </div>
+        ))}
+      </div>
+  );
 }
 
 export default AllRoad;

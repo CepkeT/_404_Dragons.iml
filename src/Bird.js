@@ -24,12 +24,12 @@ function Bird() {
         }
         setCurrentSourseImage(animationIndex)
         setUrl(animation[currentSourseImage])
-    }, 100)
+    }, 25)
 
     return (
-        <td>
+        <div>
             <img id={"bird"} src ={url}/>
-        </td>
+        </div>
     )
 
 }

@@ -1,12 +1,11 @@
 import Grass from "./Grass";
-import {useState} from "react";
 
-
-function ObjectCreatorGrass({objectIndex}) {
-    if (objectIndex === 0) {
-        return <Grass/>
+function ObjectCreatorGrass({ objectIndex }) {
+    if (objectIndex >= 0 && objectIndex <= 99) {
+        return <Grass />;
+    } else {
+        return null;
     }
-    return <Grass/>
 }
 
 export default ObjectCreatorGrass;

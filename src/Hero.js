@@ -27,9 +27,9 @@ function Hero() {
     }, 100)
 
     return (
-        <td>
-            <img src ={url}/>
-        </td>
+        <div>
+            <img src ={url} style={{ width: "100%", height: "100%" }}/>
+        </div>
     )
 
 }

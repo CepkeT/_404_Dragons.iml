@@ -1,14 +1,16 @@
-import {useState} from "react";
 class RoadCreator {
     constructor() {
-        this.roadArr = [];
-        for (let i = 0; i < 16; ++i) {
-            this.roadArr[i] = Math.floor(Math.random() * 1200);
+        this.roadArr = this.generateRoadArr();
+    }
+
+    *generateRoadArr() {
+        while (true) {
+            yield Math.floor(Math.random() * 100);
         }
     }
 
     getContent() {
-        return this.roadArr;
+        return Array.from({ length: 80 }, () => this.roadArr.next().value);
     }
 }
 

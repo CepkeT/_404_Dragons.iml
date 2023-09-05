@@ -1,15 +1,13 @@
 import Bird from "./Bird";
-import {useState} from "react";
 import Empty from "./Empty";
 
-
-function ObjectCreatorBird({objectIndex}) {
-    if (objectIndex >= 301 && objectIndex <= 1199) {
-        return <Empty/>
-    }
-
-    if (objectIndex >= 2 && objectIndex <= 300) {
-        return <Bird/>
+function ObjectCreatorBird({ objectIndex }) {
+    if (objectIndex >= 0 && objectIndex <= 94) {
+        return <Empty />;
+    } else if (objectIndex >= 95 && objectIndex <= 99) {
+        return <Bird />;
+    } else {
+        return null;
     }
 }
 
