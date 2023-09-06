@@ -1,14 +1,24 @@
+import React, { useEffect, useRef } from "react";
 import Bird from "./Bird";
 import Empty from "./Empty";
 
-function ObjectCreatorBird({ objectIndex }) {
+const ObjectCreatorBird = React.forwardRef(({ objectIndex }, ref) => {
+    const objectCreatorBirdRef = useRef(ref);
+
+    useEffect(() => {
+        if (objectCreatorBirdRef.current && objectCreatorBirdRef.current instanceof Element) {
+            const { width, height } = objectCreatorBirdRef.current.getBoundingClientRect();
+            console.log("Размер ObjectCreatorBird:", width, height);
+        }
+    }, []);
+
     if (objectIndex >= 0 && objectIndex <= 94) {
         return <Empty />;
     } else if (objectIndex >= 95 && objectIndex <= 99) {
-        return <Bird />;
+        return <Bird ref={objectCreatorBirdRef} />;
     } else {
         return null;
     }
-}
+});
 
 export default ObjectCreatorBird;

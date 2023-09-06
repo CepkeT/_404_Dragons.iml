@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useCallback, useEffect, useState, useRef} from "react";
 
 function Bird() {
     const animation = [
@@ -14,23 +14,42 @@ function Bird() {
         "/Icons/Bird/Bird_9.png",
         "/Icons/Bird/Bird_10.png"
     ];
-    const [currentSourseImage, setCurrentSourseImage] = useState(0);
-    const [url, setUrl] = useState(animation[currentSourseImage]);
 
-    setTimeout(() => {
-        let animationIndex = currentSourseImage + 1;
-        if(animationIndex === animation.length){
+    const [currentSourceImage, setCurrentSourceImage] = useState(0);
+    const [url, setUrl] = useState(animation[currentSourceImage]);
+    const [previousTime, setPreviousTime] = useState(0);
+
+    const animateBird = useCallback(() => {
+        let animationIndex = currentSourceImage + 1;
+        if (animationIndex === animation.length) {
             animationIndex = 0;
         }
-        setCurrentSourseImage(animationIndex)
-        setUrl(animation[currentSourseImage])
-    }, 25)
+        setCurrentSourceImage(animationIndex);
+        setUrl(animation[currentSourceImage]);
+    }, [animation, currentSourceImage]);
+
+    useEffect(() => {
+        let animationFrameId;
+
+        const animateTime = (time) => {
+            if (time - previousTime >= 25) {
+                animateBird();
+                setPreviousTime(time);
+            }
+            animationFrameId = requestAnimationFrame(animateTime);
+        };
+        animationFrameId = requestAnimationFrame(animateTime);
+
+        return () => {
+            cancelAnimationFrame(animationFrameId);
+        };
+    }, [previousTime, animateBird]);
+
 
     return (
         <div>
-            <img id={"bird"} src ={url}/>
+            <img id="bird" src={url} />
         </div>
-    )
-
+    );
 }
 export default Bird;
