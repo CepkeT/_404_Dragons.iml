@@ -4,8 +4,20 @@ class RoadCreator {
     }
 
     *generateRoadArr() {
-        while (true) {
-            yield Math.floor(Math.random() * 100);
+        const roadLength = 80;
+        const numbers = Array.from({ length: roadLength }, (_, index) => index);
+        let currentIndex = roadLength;
+
+        while (currentIndex > 0) {
+            const randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            [numbers[currentIndex], numbers[randomIndex]] = [
+                numbers[randomIndex],
+                numbers[currentIndex]
+            ];
+
+            yield numbers[currentIndex];
         }
     }
 

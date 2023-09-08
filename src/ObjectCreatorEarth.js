@@ -3,7 +3,6 @@ import Earth from "./Earth";
 
 const ObjectCreatorEarth = React.forwardRef(({ objectIndex }, ref) => {
         const objectCreatorEarthRef = useRef(ref);
-
         useEffect(() => {
                 if (objectCreatorEarthRef.current && objectCreatorEarthRef.current instanceof Element) {
                         const { width, height } = objectCreatorEarthRef.current.getBoundingClientRect();

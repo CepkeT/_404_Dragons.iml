@@ -4,7 +4,6 @@ import Empty from "./Empty";
 
 const ObjectCreatorBird = React.forwardRef(({ objectIndex }, ref) => {
     const objectCreatorBirdRef = useRef(ref);
-
     useEffect(() => {
         if (objectCreatorBirdRef.current && objectCreatorBirdRef.current instanceof Element) {
             const { width, height } = objectCreatorBirdRef.current.getBoundingClientRect();
@@ -13,7 +12,7 @@ const ObjectCreatorBird = React.forwardRef(({ objectIndex }, ref) => {
     }, []);
 
     if (objectIndex >= 0 && objectIndex <= 94) {
-        return <Empty />;
+        return <Empty ref={objectCreatorBirdRef} />;
     } else if (objectIndex >= 95 && objectIndex <= 99) {
         return <Bird ref={objectCreatorBirdRef} />;
     } else {

@@ -12,22 +12,20 @@ const HeroMemo = React.memo(Hero);
 const ObjectCreatorGrassMemo = React.memo(ObjectCreatorGrass);
 const ObjectCreatorEarthMemo = React.memo(ObjectCreatorEarth);
 
-function AllRoad({ Road }) {
+const AllRoad = React.memo(({ Road }) => {
   const [road, setRoad] = useState(Road);
 
   const animateRoad = useCallback(() => {
     setRoad((prevRoad) => RoadMove(prevRoad));
-  }, [Road]);
-
-  const [previousTime, setPreviousTime] = useState(0);
+  }, []);
 
   useEffect(() => {
     let animationFrameId;
-
+    let previousTime = 0;
     const animateTime = (time) => {
-      if (time - previousTime >= 500) {
+      if (time - previousTime >= 100) {
         animateRoad();
-        setPreviousTime(time);
+        previousTime = time;
       }
       animationFrameId = requestAnimationFrame(animateTime);
     };
@@ -37,11 +35,10 @@ function AllRoad({ Road }) {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [previousTime, animateRoad]);
+  }, [animateRoad]);
 
-  const windowWidth = window.innerWidth;
+  const windowWidth = window.innerWidth
   const objectCount = Math.floor(windowWidth / 35);
-
 
   return (
       <div className="AllRoadContainer">
@@ -52,38 +49,40 @@ function AllRoad({ Road }) {
 
                 if (rowIndex === 13) {
                   component = (
-                      <div >
+                      <div>
                         <ObjectCreatorBirdMemo objectIndex={road[objectIndex]} />
                       </div>
                   );
                 } else if (rowIndex === 14) {
                   if (objectIndex === 5) {
                     component = (
-                        <div ref={Hero.ref}>
+                        <div>
                           <HeroMemo objectIndex={road[objectIndex]} />
                         </div>
                     );
                   } else {
                     component = (
-                        <div >
+                        <div>
                           <ObjectCreator objectIndex={road[objectIndex]} />
                         </div>
                     );
                   }
                 } else if (rowIndex === 15) {
                   component = (
-                      <div >
+                      <div>
                         <ObjectCreatorGrassMemo objectIndex={road[objectIndex]} />
                       </div>
                   );
                 } else if (rowIndex === 16) {
                   component = (
-                      <div >
+                      <div>
                         <ObjectCreatorEarthMemo objectIndex={road[objectIndex]} />
                       </div>
                   );
                 }
-
+                console.log("rowIndex:", rowIndex);
+                console.log("objectIndex:", objectIndex);
+                console.log("road:", road);
                 return (
                     <div key={objectIndex} className="PixelContainer">
                       {component}
@@ -94,6 +93,7 @@ function AllRoad({ Road }) {
         ))}
       </div>
   );
-}
+
+});
 
 export default AllRoad;

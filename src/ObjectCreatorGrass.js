@@ -3,7 +3,6 @@ import Grass from "./Grass";
 
 const ObjectCreatorGrass = React.forwardRef(({ objectIndex }, ref) => {
     const ObjectCreatorGrassRef = useRef(ref);
-
     useEffect(() => {
         if (ObjectCreatorGrassRef.current && ObjectCreatorGrassRef.current instanceof Element) {
             const { width, height } = ObjectCreatorGrassRef.current.getBoundingClientRect();
