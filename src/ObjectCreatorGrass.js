@@ -1,7 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import Grass from "./Grass";
 
-const ObjectCreatorGrass = React.forwardRef(({ objectIndex }, ref) => {
+function ObjectGeneratorGrass ({getDivSizeAction,road}){
+    let result=[];
+    road.forEach((roadValue,index)=>{
+        switch (roadValue){
+            default:result.push(<Grass key={`Grass_${index}`}></Grass>)
+        }
+    })
+    return result;
+}
+/*const ObjectCreatorGrass = React.forwardRef(({ objectIndex }, ref) => {
     const ObjectCreatorGrassRef = useRef(ref);
     useEffect(() => {
         if (ObjectCreatorGrassRef.current && ObjectCreatorGrassRef.current instanceof Element) {
@@ -15,6 +24,6 @@ const ObjectCreatorGrass = React.forwardRef(({ objectIndex }, ref) => {
     } else {
         return null;
     }
-});
+});*/
 
-export default ObjectCreatorGrass;
+export default ObjectGeneratorGrass;

@@ -1,19 +1,17 @@
-/*function earth() {
+import React, {useEffect,useRef} from "react";
 
-    return (
-        <div>
-            <img src="/Icons/Landscape/earth.png" style={{ width: "100%", height: "100%" }}/>
-        </div>
-    )
-
-}
-export default earth;*/
-
-import React from "react";
-
-const Earth= React.forwardRef((props, ref) => {
-    return <div ref={ref}>
+function Earth({getDivSizeAction}){
+    const div = useRef(null);
+    function GetDivSizeAction(){
+        return div.current == null ? null: div.current.offsetWidth;
+    }
+    useEffect(()=>{
+        if (getDivSizeAction != undefined){
+            getDivSizeAction(GetDivSizeAction);
+        }
+    })
+    return <div ref={div} style={{ width: "100%", height: "100%" }}>
         <img  id={"Earth"} src="/Icons/Landscape/earth.png" style={{ width: "100%", height: "100%" }}/>
-    </div>
-});
+    </div>;
+}
 export default Earth;

@@ -1,19 +1,19 @@
-/*function Grass() {
+import React, {useEffect,useRef} from "react";
 
-    return (
-        <div>
-            <img src="/Icons/Landscape/grass.png" style={{ width: "100%", height: "100%" }}/>
-        </div>
-    )
-
-}
-export default Grass*/
-
-import React from "react";
-
-const Grass= React.forwardRef((props, ref) => {
-    return <div ref={ref}>
+function Grass({getDivSizeAction}){
+    const div = useRef(null);
+    function GetDivSizeAction(){
+        return div.current == null ? null: div.current.offsetWidth;
+    }
+    useEffect(()=>{
+        if (getDivSizeAction != undefined){
+            getDivSizeAction(GetDivSizeAction);
+        }
+    })
+    return <div ref={div} style={{ width: "100%", height: "100%" }}>
         <img  id={"Grass"} src="/Icons/Landscape/grass.png" style={{ width: "100%", height: "100%" }}/>
-    </div>
-});
+    </div>;
+}
 export default Grass;
+
+

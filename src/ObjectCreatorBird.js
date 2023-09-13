@@ -2,22 +2,31 @@ import React, { useEffect, useRef } from "react";
 import Bird from "./Bird";
 import Empty from "./Empty";
 
-const ObjectCreatorBird = React.forwardRef(({ objectIndex }, ref) => {
-    const objectCreatorBirdRef = useRef(ref);
-    useEffect(() => {
-        if (objectCreatorBirdRef.current && objectCreatorBirdRef.current instanceof Element) {
-            const { width, height } = objectCreatorBirdRef.current.getBoundingClientRect();
-            console.log("Размер ObjectCreatorBird:", width, height);
+function ObjectGeneratorTop({getDivSizeAction,road}){
+    let result = [];
+
+    road.forEach((roadValue,index)=>{
+        if(index==0){
+            switch (roadValue){
+                case 2:
+                    result.push(<Bird getDivSizeAction={getDivSizeAction}
+                                     key={`Bird_${index}`}></Bird>)
+                    break;
+                default:
+                    result.push(<Empty getDivSizeAction={getDivSizeAction}
+                                       key={`Empty_${index}`}></Empty>)
+            }
+        }else {
+            switch (roadValue){
+                case 2:
+                    result.push(<Bird key={`Bird_${index}`}></Bird>)
+                    break;
+                default:
+                    result.push(<Empty key={`Empty_${index}`}></Empty>)
+            }
         }
-    }, []);
+    })
+    return result;
+}
 
-    if (objectIndex >= 0 && objectIndex <= 94) {
-        return <Empty ref={objectCreatorBirdRef} />;
-    } else if (objectIndex >= 95 && objectIndex <= 99) {
-        return <Bird ref={objectCreatorBirdRef} />;
-    } else {
-        return null;
-    }
-});
-
-export default ObjectCreatorBird;
+export default ObjectGeneratorTop;

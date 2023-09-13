@@ -1,7 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import Earth from "./Earth";
 
-const ObjectCreatorEarth = React.forwardRef(({ objectIndex }, ref) => {
+function ObjectGeneratorEarth ({road}){
+        let result=[];
+        road.forEach((roadValue,index)=>{
+               switch (roadValue){
+                       default:result.push(<Earth key={`Earth_${index}`}></Earth>)
+               }
+        })
+        return result;
+}
+/*const ObjectCreatorEarth = React.forwardRef(({ objectIndex }, ref) => {
         const objectCreatorEarthRef = useRef(ref);
         useEffect(() => {
                 if (objectCreatorEarthRef.current && objectCreatorEarthRef.current instanceof Element) {
@@ -15,6 +24,6 @@ const ObjectCreatorEarth = React.forwardRef(({ objectIndex }, ref) => {
         } else {
                 return null;
         }
-});
+});*/
 
-export default ObjectCreatorEarth;
+export default ObjectGeneratorEarth;

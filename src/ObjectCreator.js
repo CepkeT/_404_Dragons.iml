@@ -3,7 +3,23 @@ import Empty from "./Empty";
 import Tree_1 from "./Tree_1";
 import Tree_2 from "./Tree_2";
 
-const ObjectCreator = forwardRef(({ objectIndex }, ref) => {
+function ObjectGeneratorBottom({road}){
+    let result = [];
+
+    road.forEach((roadValue,index)=>{
+        switch (roadValue){
+            case -1:
+                break;
+            case 1:
+                result.push(<Tree_1 key={`Tree_${index}`}></Tree_1>)
+                break;
+            default:
+                result.push(<Empty key={`Empty_${index}`}></Empty>)
+        }
+    })
+    return result;
+}
+/*const ObjectCreator = forwardRef(({ objectIndex }, ref) => {
     const objectCreatorRef = useRef(null);
 
     useEffect(() => {
@@ -29,6 +45,6 @@ const ObjectCreator = forwardRef(({ objectIndex }, ref) => {
     } else {
         return null;
     }
-});
+});*/
 
-export default ObjectCreator;
+export default ObjectGeneratorBottom;

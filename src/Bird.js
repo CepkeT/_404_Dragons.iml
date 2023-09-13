@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 
 const animation = [
     "/Icons/Bird/Bird_1.png",
@@ -14,7 +14,17 @@ const animation = [
     "/Icons/Bird/Bird_10.png"
 ];
 
-function Bird() {
+function Bird({getDivSizeAction}) {
+    const div = useRef(null);
+
+    function GetDivSizeAction(){
+        return div.current == null ? null: div.current.offsetWidth;
+    }
+    useEffect(()=>{
+        if (getDivSizeAction != undefined){
+            getDivSizeAction(GetDivSizeAction);
+        }
+    })
     const [currentSourceImage, setCurrentSourceImage] = useState(0);
 
     const animateBird = useCallback(() => {
@@ -49,7 +59,7 @@ function Bird() {
     const url = animation[currentSourceImage];
 
     return (
-        <div ref={ref}>
+        <div ref={div}>
             <img id="bird" src={url} />
         </div>
     );
