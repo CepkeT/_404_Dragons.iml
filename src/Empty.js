@@ -10,6 +10,6 @@ function Empty({getDivSizeAction}){
             getDivSizeAction(GetDivSizeAction);
         }
     })
-    return <div ref={div} style={{ width: "100%", height: "100%" }}><div/></div>;
+    return <div ref={div} className="Empty"></div>;
 }
 export default Empty;

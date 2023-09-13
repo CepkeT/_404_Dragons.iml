@@ -59,8 +59,8 @@ function Bird({getDivSizeAction}) {
     const url = animation[currentSourceImage];
 
     return (
-        <div ref={div}>
-            <img id="bird" src={url} />
+        <div ref={div} className="bird">
+            <img src={url} />
         </div>
     );
 }

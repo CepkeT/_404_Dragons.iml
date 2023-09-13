@@ -10,7 +10,7 @@ function Tree_2({getDivSizeAction}){
             getDivSizeAction(GetDivSizeAction);
         }
     })
-    return <div ref={div} style={{ width: "100%", height: "100%" }}>
+    return <div ref={div} >
         <img id={"tree_2"} src="/Icons/Landscape/tree_2.png" style={{ width: "100%", height: "100%" }}/>
     </div>;
 }

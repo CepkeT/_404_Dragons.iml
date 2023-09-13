@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState,useRef} from "react";
 
-function Hero({playerOffsetSetterAction}) {
+function Hero({heroOffsetSetterAction}) {
     const animation = [
         "/Icons/Hero/Hero_10.png",
         "/Icons/Hero/Hero_9.png",
@@ -48,10 +48,10 @@ function Hero({playerOffsetSetterAction}) {
     const divRef = useRef(null);
 
     function div_OnLoad(){
-        playerOffsetSetterAction(setPlayerOffset);
+        heroOffsetSetterAction(setHeroOffset);
     }
 
-    function setPlayerOffset(offset){
+    function setHeroOffset(offset){
         if (divRef.current == null){
             return;
         }
@@ -60,8 +60,8 @@ function Hero({playerOffsetSetterAction}) {
     }
 
     return (
-        <div rowSpan={2} ref={divRef} onLoad={div_OnLoad}>
-            <img src={url} style={{ width: "100%", height: "100%" }} />
+        <div rowSpan={2} className="Hero" ref={divRef} onLoad={div_OnLoad}>
+            <img src={url}  />
         </div>
     );
 }

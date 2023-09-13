@@ -10,7 +10,7 @@ function Earth({getDivSizeAction}){
             getDivSizeAction(GetDivSizeAction);
         }
     })
-    return <div ref={div} style={{ width: "100%", height: "100%" }}>
+    return <div ref={div}>
         <img  id={"Earth"} src="/Icons/Landscape/earth.png" style={{ width: "100%", height: "100%" }}/>
     </div>;
 }
