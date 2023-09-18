@@ -1,16 +1,9 @@
-import React, {useEffect,useRef} from "react";
+import React from "react";
 
-function Grass({getDivSizeAction}){
-    const div = useRef(null);
-    function GetDivSizeAction(){
-        return div.current == null ? null: div.current.offsetWidth;
-    }
-    useEffect(()=>{
-        if (getDivSizeAction != undefined){
-            getDivSizeAction(GetDivSizeAction);
-        }
-    })
-    return <div ref={div} >
+function Grass(){
+
+
+    return <div>
         <img  id={"Grass"} src="/Icons/Landscape/grass.png" style={{ width: "100%", height: "100%" }}/>
     </div>;
 }

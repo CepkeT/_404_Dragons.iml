@@ -1,6 +1,6 @@
-import {useCallback, useEffect, useState,useRef} from "react";
+import {useCallback, useEffect, useState} from "react";
 
-function Hero({heroOffsetSetterAction}) {
+function Hero({heroRef}) {
     const animation = [
         "/Icons/Hero/Hero_10.png",
         "/Icons/Hero/Hero_9.png",
@@ -45,22 +45,9 @@ function Hero({heroOffsetSetterAction}) {
         };
     }, [previousTime, animateHero]);
 
-    const divRef = useRef(null);
-
-    function div_OnLoad(){
-        heroOffsetSetterAction(setHeroOffset);
-    }
-
-    function setHeroOffset(offset){
-        if (divRef.current == null){
-            return;
-        }
-
-        divRef.current.style.left = `${offset}px`;
-    }
 
     return (
-        <div rowSpan={2} className="Hero" ref={divRef} onLoad={div_OnLoad}>
+        <div className="Hero"  ref = {heroRef}>
             <img src={url}  />
         </div>
     );

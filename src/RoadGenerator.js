@@ -1,29 +1,52 @@
-import ObjectGeneratorTop from "./ObjectGeneratorTop";
-import ObjectGeneratorBottom from "./ObjectGeneratorBottom";
-import ObjectGeneratorMid from "./ObjectGeneratorMid";
-import ObjectCreatorGrass from "./ObjectCreatorGrass";
-import ObjectGeneratorEarth from "./ObjectGeneratorEarth";
+/*class RoadGenerator {
+    roadArr = [];
+    constructor() {
+        this.roadArr = [];
+        for (let i=0;i<26;++i){
+            this.roadArr.push(Generator().next().value)
+        }
+    }
 
-function RoadGenerator({ road, getDivSizeAction, heroOffsetAction }) {
-    let roadWithHero = [-1];
-    roadWithHero.push(...road);
+    RoadMoveLogic(Road) {
+        Road.shift();
+        Road.push(Generator().next().value);
+        return [...Road];
+    }
 
-    return (
-        <div className="road-container">
-            <div className="row">
-                <ObjectGeneratorTop getDivSizeAction={getDivSizeAction} road={roadWithHero} />
-            </div>
-            <div className="row">
-                <ObjectGeneratorBottom road={roadWithHero} heroOffsetSetterAction={heroOffsetAction} />
-            </div>
-            <div className="row">
-                <ObjectCreatorGrass road={roadWithHero} />
-            </div>
-            <div className="row">
-                <ObjectGeneratorEarth road={roadWithHero} />
-            </div>
-        </div>
-    );
+    getContent(){
+        return this.roadArr;
+    }
+}
+
+function* Generator() {
+    yield Math.floor(Math.random() * 2000);
+}
+
+export default  new RoadGenerator;*/
+// RoadGenerator.js
+class RoadGenerator {
+    roadArr = [];
+
+    constructor() {
+        this.roadArr = [];
+        for (let i = 0; i < 26; ++i) {
+            this.roadArr.push(Generator().next().value);
+        }
+    }
+
+    RoadMoveLogic(Road) {
+        Road.shift();
+        Road.push(Generator().next().value);
+        return [...Road];
+    }
+
+    getContent() {
+        return this.roadArr;
+    }
+}
+
+function* Generator() {
+    yield Math.floor(Math.random() * 2000);
 }
 
 export default RoadGenerator;
