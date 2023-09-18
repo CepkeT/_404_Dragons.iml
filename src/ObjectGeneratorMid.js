@@ -1,23 +1,12 @@
-import Hero from "./Hero";
 import Tree_1 from "./Tree_1";
-import Bird from "./Bird";
 import Empty from "./Empty";
 
-function ObjectGeneratorMid({road, heroOffsetSetterAction}){
-    let result = [];
+function ObjectGeneratorMid({getDivAction, time, objectIndex}){
 
-    road.forEach((roadValue, index) => {
-        switch (roadValue){
-            case -1:
-                result.push(<Hero key={`Hero_${index}`}
-                                  heroOffsetSetterAction=
-                                      {heroOffsetSetterAction}></Hero>)
-                break;
-            default:
-                result.push(<Empty key={`Empty_${index}`}></Empty>)
-        }
-    })
-
-    return result
+    if (objectIndex >= 1400 && objectIndex <= 1500) {
+        return <Tree_1 GetDivAction={getDivAction} time={time}/>
+    } else {
+        return <Empty GetDivAction={getDivAction} time={time}/>
+    }
 }
 export default ObjectGeneratorMid;

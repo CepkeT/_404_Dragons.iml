@@ -1,15 +1,11 @@
-import React, { useEffect, useRef } from "react";
-import Earth from "./Earth";
+import Earth from "./Grass";
+import React from "react";
 
-function ObjectGeneratorEarth ({road}){
-        let result=[];
-        road.forEach((roadValue,index)=>{
-               switch (roadValue){
-                       default:result.push(<Earth key={`Earth_${index}`}></Earth>)
-               }
-        })
-        return result;
+function ObjectGeneratorEarth ({ objectIndex}){
+    if (objectIndex >= 1400 && objectIndex <= 1500) {
+        return <Earth />
+    } else {
+        return <Earth />
+    }
 }
 export default ObjectGeneratorEarth;
-
-

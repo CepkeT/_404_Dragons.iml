@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 const animation = [
     "/Icons/Bird/Bird_1.png",
@@ -14,17 +14,27 @@ const animation = [
     "/Icons/Bird/Bird_10.png"
 ];
 
-function Bird({getDivSizeAction}) {
-    const div = useRef(null);
+function Bird({ getDivAction, time }) {
+    const birdRef = useRef(null);
 
-    function GetDivSizeAction(){
-        return div.current == null ? null: div.current.offsetWidth;
-    }
-    useEffect(()=>{
-        if (getDivSizeAction != undefined){
-            getDivSizeAction(GetDivSizeAction);
+    const getDivSizeAction = useCallback(() => {
+        return birdRef.current == null ? null : birdRef.current.offsetWidth;
+    }, []);
+
+    useEffect(() => {
+        let timeoutId;
+
+        if (getDivAction !== undefined) {
+            timeoutId = setTimeout(() => {
+                getDivAction(getDivSizeAction);
+            }, time);
         }
-    })
+
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, [getDivAction, getDivSizeAction, time]);
+
     const [currentSourceImage, setCurrentSourceImage] = useState(0);
 
     const animateBird = useCallback(() => {
@@ -59,7 +69,7 @@ function Bird({getDivSizeAction}) {
     const url = animation[currentSourceImage];
 
     return (
-        <div ref={div} className="bird">
+        <div ref={birdRef} className="bird">
             <img src={url} />
         </div>
     );

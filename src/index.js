@@ -1,10 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import AllRoad from "./AllRoad";
+import roadGenerator from "./RoadGenerator";
 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+let RoadArray = roadGenerator;
+const root = createRoot(document.getElementById('root'));
 
 root.render(
-            <AllRoad/>
+    <React.StrictMode>
+        <AllRoad Road={RoadArray} />
+    </React.StrictMode>
 );

@@ -1,16 +1,8 @@
-import React, {useEffect,useRef} from "react";
+import React from "react";
 
-function Earth({getDivSizeAction}){
-    const div = useRef(null);
-    function GetDivSizeAction(){
-        return div.current == null ? null: div.current.offsetWidth;
-    }
-    useEffect(()=>{
-        if (getDivSizeAction != undefined){
-            getDivSizeAction(GetDivSizeAction);
-        }
-    })
-    return <div ref={div}>
+function Earth(){
+
+    return <div>
         <img  id={"Earth"} src="/Icons/Landscape/earth.png" style={{ width: "100%", height: "100%" }}/>
     </div>;
 }

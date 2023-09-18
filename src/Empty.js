@@ -1,15 +1,25 @@
-import React, {useEffect,useRef} from "react";
+import React, {useCallback, useEffect, useRef} from "react";
 
-function Empty({getDivSizeAction}){
-    const div = useRef(null);
-    function GetDivSizeAction(){
-        return div.current == null ? null: div.current.offsetWidth;
-    }
-    useEffect(()=>{
-        if (getDivSizeAction != undefined){
-            getDivSizeAction(GetDivSizeAction);
+function Empty({getDivAction, time}){
+    const emptyRef = useRef(null);
+
+    const getDivSizeAction = useCallback(() => {
+        return birdRef.current == null ? null : birdRef.current.offsetWidth;
+    }, []);
+
+    useEffect(() => {
+        let timeoutId;
+
+        if (getDivAction !== undefined) {
+            timeoutId = setTimeout(() => {
+                getDivAction(getDivSizeAction);
+            }, time);
         }
-    })
-    return <div ref={div} className="Empty"></div>;
+
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, [getDivAction, getDivSizeAction, time]);
+    return <div ref={emptyRef} className="Empty"></div>;
 }
 export default Empty;
